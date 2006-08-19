@@ -1,0 +1,52 @@
+<characters>
+  <character id='amity'>
+    <name>
+      <ja>アミティ</ja>
+      <us>Amity</us>
+      <fr>Amitié</fr>
+    </name>
+    <dropset type='balanced'>
+      <drop>2</drop>
+      <drop>2</drop>
+      <drop>2</drop>
+      <drop>3</drop>
+      <drop>2</drop>
+      <drop>2</drop>
+      <drop>2</drop>
+      <drop>4</drop>
+      <drop>2</drop>
+      <drop>2</drop>
+      <drop>2</drop>
+      <drop>3</drop>
+      <drop>2</drop>
+      <drop>2</drop>
+      <drop>2</drop>
+      <drop>2x2</drop>
+    </dropset>
+  </character>
+    <character id='raffine'>
+    <name>
+      <ja>ラフィーナ</ja>
+      <us>Raffine</us>
+      <fr>Raffine</fr>
+    </name>
+    <dropset type='highchained'>
+      <drop>2</drop>
+      <drop>2</drop>
+      <drop>3</drop>
+      <drop>2</drop>
+      <drop>2</drop>
+      <drop>4</drop>
+      <drop>2</drop>
+      <drop>2</drop>
+      <drop>2</drop>
+      <drop>3</drop>
+      <drop>2</drop>
+      <drop>2</drop>
+      <drop>3</drop>
+      <drop>2</drop>
+      <drop>2</drop>
+      <drop>2x2</drop>
+    </dropset>
+  </character>
+</characters>
