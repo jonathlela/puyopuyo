@@ -2,6 +2,8 @@ require 'rexml/document'
 require "dropset.rb"
 require "puyoform.rb"
 
+#Commentaire pour un premier commit
+
 class Character
   
   def initialize(character)
