@@ -1,27 +1,16 @@
 require 'opengl'
-require 'scenetree.rb'
-
-class Stage3D
-  def initialize()
-  end
-  def draw()
-    SimpleStage3D.draw()
-    @parent=nil
-  end
-  def get_parent()
-    return @parent
-  end
-  def set_parent(parent)
-    @parent=parent
-  end
-end
 
 class SimpleStage3D
   @@stage=0
+  
   def SimpleStage3D.init()
     @@stage=GL.GenLists(1)
     genDisplayList()
   end
+  def SimpleStage3D.getMeshes()
+    return @@stage
+  end
+private
   def SimpleStage3D.genDisplayList()
     GL.NewList(@@stage,GL::COMPILE)
 #     turquoise background
@@ -90,8 +79,5 @@ class SimpleStage3D
         GL.Vertex(-3,-6,0.2);
       GL.End()
     GL.EndList()
-  end
-  def SimpleStage3D.draw()
-    GL.CallList(@@stage)
   end
 end

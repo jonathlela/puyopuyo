@@ -1,6 +1,6 @@
 require 'socket'
 require 'glengine'
-require 'puyo3d'
+require 'client/graphic/Puyo3D'
 require 'glplayer'
 require 'puyo3dform'
 require 'scenetree.rb'
