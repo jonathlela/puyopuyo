@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<project name="Puyopuyo" default="run">
+  <target name="run">
+	<parallel>
+		<antcall target="server"/>
+		<sequential>
+			<sleep seconds="1"/>
+			<antcall target="client"/>
+		</sequential>
+	</parallel>
+  </target>
+  <target name="server">
+	<sequential>
+		<echo level="info" message="Starting puyo server"/>
+		<apply executable="ruby">
+			<redirector createemptyfiles="true" output="server.log"/>
+			<filelist dir=".">
+				<file name="main.rb"/>
+			</filelist>
+		</apply>
+	</sequential>
+  </target>
+  <target name="client">
+	<sequential>
+		<echo level="info" message="Starting puyo client"/>
+		<apply executable="ruby">
+			<redirector createemptyfiles="true" output="client.log"/>
+			<filelist dir=".">
+				<file name="main2.rb"/>
+			</filelist>
+		</apply>
+	</sequential> 
+  </target>
+</project>
