@@ -3,7 +3,7 @@ require 'math3d'
 
 class GLcamera < Node
 	def initialize()
-	 super()
+	 init()
 	 system_inverse()
 	end
 	def inspect()

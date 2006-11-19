@@ -6,12 +6,13 @@ class Node
   DEBUG=false
   @@ident=0
   def initialize()
+    init()
+  end
+  def init()
     @position=Math3d::Vector3.new(0.0,0.0,0.0)
     @direction=Math3d::Vector3.new(0.0,0.0,1.0)
     @angle=0.0
     @transform=Math3d::Matrix4::ident
-    #@transform=Math3d::Matrix4::rotate(@direction,@angle)
-    #@transform.set_row(3,@position)
     @children=Array.new
     @parent=nil
     @objects=Array.new
