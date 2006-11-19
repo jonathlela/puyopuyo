@@ -10,7 +10,7 @@ require 'graphicclient'
 require "sdlcontrols.rb"
 require "sdlcontrols2.rb"
 require 'sceneworld'
-require "client/graphic/OpenGL/SimpleLight/SimpleLight.rb"
+require "gllight.rb"
 
 class GLengine < GraphicEngine
   Width=800.0

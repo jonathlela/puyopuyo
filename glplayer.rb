@@ -53,10 +53,8 @@ class GLplayer < World
     self.add_camera(@camera)
     self.add_child(@camera)
     
-    light=SimpleLight.new(GL::LIGHT0)
-    light.set_color(1.0, 1.0, 1.0)
+    light=GLlight.new(0)
     light.set_position(5.0,5.0,10.0)
-    light.switch_on()
     self.add_child(light)
     self.add_light(light)
     

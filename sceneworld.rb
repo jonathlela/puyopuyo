@@ -4,7 +4,7 @@ require 'glcamera'
 
 class World < Node
   def initialize(num)
-    init()
+    super()
     @nb=num
     @lights=Array.new(8,nil)
     @cameras=Array.new()

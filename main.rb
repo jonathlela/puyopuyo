@@ -8,6 +8,10 @@ require "graphicengine.rb"
 require "game.rb"
 require "sdlcontrols.rb"
 
+
+
+
+
 BASE_DIFFCULTY = 2
 BASE_VELOCITY = 500
 

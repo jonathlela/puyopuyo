@@ -1,5 +1,5 @@
 require 'scenetree.rb'
-require 'client/graphic/OpenGL/simpleMeshe/SimplePuyo3D.rb'
+require 'client/graphic/simpleMeshe/SimplePuyo3D.rb'
 require 'client/graphic/Drawable.rb'
 
 class Puyo3D < Node
