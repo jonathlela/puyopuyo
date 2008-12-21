@@ -129,7 +129,7 @@ class GLplayer < World
         @explode=0
         print_debug("dokkan")
         @currentPuyo.clear()
-        @client.explosion_completed(@team+1)
+        @client.explosion_completed(@team)
       end   
     end
   end
@@ -160,7 +160,7 @@ class GLplayer < World
           @currentPuyo.round()
           @stat=COLLISION
           print_debug("collision")
-          @client.updown_collision(@team+1,@currentPuyo.get_puyos())
+          @client.updown_collision(@team,@currentPuyo.get_puyos())
         end
       end
     }
@@ -178,7 +178,7 @@ class GLplayer < World
             @currentPuyo.round()
             @stat=COLLISION
             print_debug("collision")
-            @client.updown_collision(@team+1,@currentPuyo.get_puyos())
+            @client.updown_collision(@team,@currentPuyo.get_puyos())
           else
             if @currentPuyo.interactive_expired?("down",@time) then     
               @currentPuyo.stop_interactive("down")

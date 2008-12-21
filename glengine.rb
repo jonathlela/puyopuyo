@@ -51,7 +51,7 @@ class GLengine < GraphicEngine
 
   def add_puyo_current(player,puyo3d)
     puts "add c 0"
-    @player[player-1].add_puyo_current(puyo3d)
+    @player[player].add_puyo_current(puyo3d)
     puts "add c 1"
   end
 #  def del_puyo_current(player,id)
@@ -71,24 +71,24 @@ class GLengine < GraphicEngine
 #  end
   def move_puyo_from_current_to_chart(player,puyos_id)
     puts "move c t 0"
-    @player[player-1].move_puyo_from_current_to_chart(puyos_id)
+    @player[player].move_puyo_from_current_to_chart(puyos_id)
     puts "move c t 1"
   end
   def move_puyo_from_chart_to_current(player,puyos_id)
     puts "move t c 0"
-    @player[player-1].move_puyo_from_chart_to_current(puyos_id)
+    @player[player].move_puyo_from_chart_to_current(puyos_id)
     puts "move t c 1"
   end
   
   def explod(player,puyos_id,time_to_explod)
     puts "explod 0"
-    @player[player-1].explod(puyos_id,time_to_explod)
+    @player[player].explod(puyos_id,time_to_explod)
     puts "explod 1"
   end  
   
   def down(player,time_to_fall_one_step)
     puts "d 0"
-    @player[player-1].down(time_to_fall_one_step)
+    @player[player].down(time_to_fall_one_step)
     puts "d 1"
   end
     
