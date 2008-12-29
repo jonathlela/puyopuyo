@@ -13,8 +13,8 @@ require 'sceneworld'
 require "gllight.rb"
 
 class GLengine < GraphicEngine
-  Width=800.0
-  Height=600.0
+  Width=640.0
+  Height=480.0
   BPP=16
   FOV=45.0
   ClipNear=0.1
