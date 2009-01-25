@@ -85,7 +85,11 @@ class GLengine < GraphicEngine
     @player[player].explod(puyos_id,time_to_explod)
     puts "explod 1"
   end  
-  
+
+  def rensa(player,num,fact,score,time_to_display,time)
+    puts "rensa "+player.to_s+" "+num.to_s+"x"+fact.to_s+"; new_score: "+time.to_s
+  end
+
   def down(player,time_to_fall_one_step)
     puts "d 0"
     @player[player].down(time_to_fall_one_step)

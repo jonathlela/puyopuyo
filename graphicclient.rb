@@ -68,6 +68,8 @@ class GraphicClient
             @engine.explod(words[1].to_i,puyos_id,words[i+1])  
 #          when "explod"
 #            @engine.explod(words[1].to_i,words[2].to_i,words[3].to_i)
+          when "rensa"
+            
         end
       end
     }
