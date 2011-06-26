@@ -1,4 +1,5 @@
 require "scenetree.rb"
+require "rotation.rb"
 
 class CurrentPuyo < Node
   def initialize()
@@ -8,11 +9,11 @@ class CurrentPuyo < Node
     @down=false
     @rleft=false
     @rright=false
-    
+
     @interactive_motion=Array.new
     @background_motion=Array.new
     @halted_motion=Array.new
-        
+
     @pos_motion=Array.new
     @speed_motion=Array.new
     10.times {
@@ -20,43 +21,43 @@ class CurrentPuyo < Node
      @pos_motion.push(mot)
      mot=SpeedMotion.new
      @speed_motion.push(mot)
-    }    
+    }
   end
-  
+
   def move_left(time,time_to_fall_one_step)
     if !@left && !@right && !@down && !@rleft && !@rright then
-      current_motion=@pos_motion.pop()  
+      current_motion=@pos_motion.pop()
       current_motion.set("left",@position.x,@position.x-1,time,time_to_fall_one_step.to_f/1000)
-      @interactive_motion.push(current_motion) 
+      @interactive_motion.push(current_motion)
       @left=true
     end
   end
   def move_right(time,time_to_fall_one_step)
     if !@left && !@right && !@down && !@rleft && !@rright then
-      current_motion=@pos_motion.pop()  
+      current_motion=@pos_motion.pop()
       current_motion.set("right",@position.x,@position.x+1,time,time_to_fall_one_step.to_f/1000)
-      @interactive_motion.push(current_motion) 
+      @interactive_motion.push(current_motion)
       @right=true
     end
   end
   def move_down(time,time_to_fall_one_step)
     if !@left && !@right && !@down && !@rleft && !@rright then
-      current_motion=@speed_motion.pop()  
+      current_motion=@speed_motion.pop()
       current_motion.set("down",1000.0/time_to_fall_one_step.to_f,time,0.2)
-      @interactive_motion.push(current_motion) 
+      @interactive_motion.push(current_motion)
       @down=true
     end
   end
   def fall(time,time_to_fall_one_step)
       current_motion=@speed_motion.pop()
       current_motion.set("fall",1000.0/time_to_fall_one_step.to_f,time,0.0)
-      @background_motion.push(current_motion) 
+      @background_motion.push(current_motion)
   end
   def rotate_left(time,time_to_rotate)
     if !@left && !@right && !@down && !@rleft && !@rright then
        current_motion=@pos_motion.pop()
        current_motion.set("rleft",@angle,@angle+Math::PI/2.0,time,time_to_rotate.to_f/1000)
-       @interactive_motion.push(current_motion) 
+       @interactive_motion.push(current_motion)
        @rleft=true
     end
   end
@@ -64,7 +65,7 @@ class CurrentPuyo < Node
     if !@left && !@right && !@down && !@rleft && !@rright then
        current_motion=@pos_motion.pop()
        current_motion.set("rright",@angle,@angle-Math::PI/2.0,time,time_to_rotate.to_f/1000)
-       @interactive_motion.push(current_motion) 
+       @interactive_motion.push(current_motion)
        @rright=true
     end
   end
@@ -85,9 +86,9 @@ class CurrentPuyo < Node
       case(name)
         when "down"
           @position.y-=motion.get_value(time)
-        when "right" 
+        when "right"
           @position.x=motion.get_value(time)
-        when "left" 
+        when "left"
           @position.x=motion.get_value(time)
         when "rleft"
           @angle=motion.get_value(time)
@@ -102,13 +103,13 @@ class CurrentPuyo < Node
       end
     }
   end
-  
+
   def get_background_motion()
     mov=Array.new
     @background_motion.each { |motion| mov.push(motion.get_label()) }
     return mov
   end
-  
+
   def background_expired?(label,time)
     motion=@background_motion.select { |motion| motion.get_label()==label }.first
     return motion.expired?(time)
@@ -146,10 +147,10 @@ class CurrentPuyo < Node
         @rleft=false
        when "rright"
         @rright=false
-    end               
+    end
   end
   def stop_all_interactive()
-    @interactive_motion.each { |motion| 
+    @interactive_motion.each { |motion|
       if motion.class.to_s=="SpeedMotion" then @speed_motion.push(motion) end
       if motion.class.to_s=="PosMotion" then @pos_motion.push(motion) end
     }
@@ -162,7 +163,7 @@ class CurrentPuyo < Node
   end
   def halt_background(label)
     motion=@background_motion.select { |motion| motion.get_label()==label }.first
-    if motion!=nil then 
+    if motion!=nil then
       @halted_motion.push(motion)
       @background_motion.delete(motion)
     end
@@ -174,7 +175,7 @@ class CurrentPuyo < Node
     if motion.class.to_s=="SpeedMotion" then motion.get_value(time) end
   end
   def stop_all_halted()
-    @halted_motion.each { |motion| 
+    @halted_motion.each { |motion|
       if motion.class.to_s=="SpeedMotion" then @speed_motion.push(motion) end
       if motion.class.to_s=="PosMotion" then @pos_motion.push(motion) end
     }
@@ -189,9 +190,9 @@ class CurrentPuyo < Node
     end
 
   end
-  
-  def update()  
-    @transform=Math3d::Matrix4::rotate(@direction,@angle)
+
+  def update()
+    @transform=Rotation.new(@direction,@angle)
     @transform.set_row(3,@position)
     update_coord()
   end
@@ -202,9 +203,9 @@ class CurrentPuyo < Node
     puyos.each { |puyo| self.add_child(puyo) }
     update_bound()
   end
-  
-  
-  
+
+
+
   def get_puyos()
     return @children
   end
@@ -218,9 +219,9 @@ class CurrentPuyo < Node
        puyos.push(puyo)
      }
      @children.clear()
-     
+
      puyos_to_move=puyos.select { |puyo| ids.include?(puyo.id) }
-     
+
      self.add(puyos-puyos_to_move)
 
      return puyos_to_move
@@ -230,9 +231,9 @@ class CurrentPuyo < Node
     super
     update_bound()
   end
-  
+
   def update_bound()
-    if (!@children.empty?) then 
+    if (!@children.empty?) then
       rowmin=18
       colmin=6
       rowmax=0
@@ -244,42 +245,42 @@ class CurrentPuyo < Node
         if colmin > col then colmin=col end
         if rowmin > row then rowmin=row end
         if colmax < col then colmax=col end
-        if rowmax < row then rowmax=row end        
-#        puts "cmin: "+colmin.to_s+" cmax: "+colmax.to_s+" rmin: "+rowmin.to_s+" rmax: "+rowmax.to_s   
+        if rowmax < row then rowmax=row end
+#        puts "cmin: "+colmin.to_s+" cmax: "+colmax.to_s+" rmin: "+rowmin.to_s+" rmax: "+rowmax.to_s
       }
-      @children.each { |puyo3d| 
+      @children.each { |puyo3d|
 
          v1=puyo3d.get_stage_position()
          y=v1.y-rowmin
          x=v1.x-colmin
-         puyo3d.set_position(x,-y,0.0)    
+         puyo3d.set_position(x,-y,0.0)
       }
       x=colmin
-      y=rowmin  
+      y=rowmin
       height=rowmax-rowmin+1
-      width=colmax-colmin+1     
+      width=colmax-colmin+1
     else
       x=0
       y=0
       height=0
-      width=0      
+      width=0
     end
     self.set_position(x,-y,0.0)
   end
-  
+
   def round()
     @position.x=@position.x.round
     @position.y=-((-@position.y).truncate)
     update()
   end
-  
+
   def get_stage_position()
      v=@system_coord.get_row(3)
      v.x=v.x+2.5
      v.y=12.5-v.y
      v.z=0.0
-     return v    
-  end  
+     return v
+  end
   def upstair?()
     v=get_stage_position()
     if v.y==5.0 then return true end
@@ -294,5 +295,5 @@ class CurrentPuyo < Node
     }
     return str
   end
-    
+
 end

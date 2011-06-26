@@ -1,4 +1,5 @@
-require 'math3d'
+require "vector3.rb"
+require "rotation.rb"
 require 'opengl'
 
 class Node
@@ -9,14 +10,14 @@ class Node
     init()
   end
   def init()
-    @position=Math3d::Vector3.new(0.0,0.0,0.0)
-    @direction=Math3d::Vector3.new(0.0,0.0,1.0)
+    @position=Vector3.new(0.0,0.0,0.0)
+    @direction=Vector3.new(0.0,0.0,1.0)
     @angle=0.0
-    @transform=Math3d::Matrix4::ident
+    @transform= Rotation.new
     @children=Array.new
     @parent=nil
     @objects=Array.new
-    @system_coord=Math3d::Matrix4::ident
+    @system_coord= Rotation.new
   end
   def reset()
     @position.x=0.0
@@ -39,7 +40,7 @@ class Node
     renturn @angle
   end
   def get_rotation()
-    return Math3d::Rotation.new(@direction,@angle)
+    return Rotation.new(@direction,@angle)
   end
   def set_position(*position)
     if position.length==3 then
@@ -48,7 +49,7 @@ class Node
       @position.z=position[2]
     elsif position.length==1 then
       @position=position
-    else 
+    else
       raise "wrong number of arguments ("+position.length.to_s+" for 1 or 3)"
     end
     update_position()
@@ -84,7 +85,7 @@ class Node
     str << "\n\tobjects:\t["
     size=@objects.length
     if size==0 then str << "empty" else
-      @objects.each_index { |i| 
+      @objects.each_index { |i|
         str << "<"+@objects[i].class.to_s+":0x%x"%(@objects[i].object_id*2)+">"
         if i<size-1 then str << ", " end
       }
@@ -93,7 +94,7 @@ class Node
     str << "\n\tchildren:\t["
     size=@children.length
     if size==0 then str << "empty" else
-      @children.each_index { |i| 
+      @children.each_index { |i|
         str << "<"+@children[i].class.to_s+":0x%x"%(@children[i].object_id*2)+">"
         if i<size-1 then str << ", " end
       }
@@ -104,7 +105,7 @@ class Node
   def inspect_private()
     str=""
     str << self.inspect+"\nTransform: \n"+@transform.inspect+"\nSystem  Coord: \n"+@system_coord.inspect
-    return str  
+    return str
   end
   def add_child(child)
     if @children.include?(child) then raise "already a child of this node" end
@@ -171,7 +172,7 @@ protected
     update_coord()
   end
   def update_rotation()
-    @transform=Math3d::Matrix4::rotate(@direction,@angle)
+    @transform=Rotation.new(@direction,@angle)
     update_position()
   end
 end

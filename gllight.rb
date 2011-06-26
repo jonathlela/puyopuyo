@@ -1,7 +1,5 @@
 require "scenetree.rb"
 require 'opengl'
-require 'math3d'
-
 
 class GLlight < Node
   def initialize(num)
@@ -29,7 +27,7 @@ class GLlight < Node
         GL.Enable(GL::LIGHT7)
    end
   end
-  
+
   def turn_off()
     case @num
       when 0
@@ -49,8 +47,8 @@ class GLlight < Node
       when 7
         GL.Disable(GL::LIGHT7)
    end
-  end  
-  
+  end
+
   def draw()
     super
     v=@system_coord.get_row(3)
@@ -73,5 +71,5 @@ class GLlight < Node
         GL.Lightfv(GL::LIGHT7,GL::POSITION,[v.x,v.y,v.z,0.0])
     end
   end
-  
+
 end
