@@ -19,7 +19,7 @@ class Node
     @objects=Array.new
     @system_coord= Rotation.new
   end
-  def reset()y
+  def reset()
     @position.x=0.0
     @position.y=0.0
     @position.z=0.0
