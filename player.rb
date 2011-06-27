@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 require "puyochart.rb"
 require "puyo.rb"
 
 class Player
-   
-  @@ids=0
-    
+
+  @@ids=-1
+
   def initialize(nb,character,velocity,difficulty,render_engine,control)
     @@ids+=1
     @id=@@ids
@@ -26,75 +27,75 @@ class Player
     @puyos_exploded = Array.new
     @nb_puyos = 0
   end
-  
+
   def id
     return @id
   end
-   
+
   def puyo_chart
-    return @puyo_chart   
+    return @puyo_chart
   end
-  
+
   def current_puyos
-    return @current_puyos  
+    return @current_puyos
   end
-  
+
   def set_current_puyos(current_puyos)
     @current_puyos = current_puyos
   end
-  
+
   def game
     return @game
   end
-  
+
   def game= (game)
     @game = game
   end
-  
+
   def ojama_puyos= (nb)
     @ojama_puyos += nb
   end
-  
+
   def rotation
     return @rotation
   end
-  
+
   def nb
     return @nb
   end
-  
+
   def character
     return @character
   end
-  
+
   def velocity
     return @velocity
   end
-  
+
   def score
     return @score
   end
-  
+
   def team
     return @team
   end
-  
+
   def team= (team)
     @team = team
   end
-  
+
   def nb_puyos
     return @nb_puyos
   end
-  
+
   def nb_puyos= (nb_puyos)
     @nb_puyos = nb_puyos
   end
-  
+
   def batankyu?
     return @puyo_chart.batankyu?
   end
-  
+
   def start
     puts nb.to_s+" #start#"
     @next_puyos.push(@character.dropset.next().instanciate(self,@game.equilibrium,@difficulty))
@@ -103,7 +104,7 @@ class Player
     @can_move = true
     @control.listen
   end
-  
+
   def swich_puyos()
     puts "@"+nb.to_s+" #switch puyos#"
     @can_move = false
@@ -125,7 +126,7 @@ class Player
      # time = Time.now+0.1
       old_current_puyos = @current_puyos
 #      @current_puyos.each { |puyo|
-#        @render_engine.delete_puyo_current(self,puyo,time)  
+#        @render_engine.delete_puyo_current(self,puyo,time)
 #      }
       if @ojama_puyos >= 30
         @ojama_puyos -= 30
@@ -133,9 +134,9 @@ class Player
       else
         @current_puyos = ojamapuyos_fall(@ojama_puyos)
         @ojama_puyos = 0
-      end           
+      end
 #      @current_puyos.each { |puyo|
-#        @render_engine.add_puyo_current(self,puyo,time)  
+#        @render_engine.add_puyo_current(self,puyo,time)
 #      }
       @had_ojamajed = true
       #@render_engine.down(self,@current_puyos,velocity/10)
@@ -143,13 +144,13 @@ class Player
       @render_engine.ojamafall(self,old_current_puyos,@current_puyos,@velocity/10)
     else
 #      time = Time.now+0.1
-      old_current_puyos = @current_puyos    
+      old_current_puyos = @current_puyos
 #      @current_puyos.each { |puyo|
-#        @render_engine.delete_puyo_current(self,puyo,time)  
+#        @render_engine.delete_puyo_current(self,puyo,time)
 #      }
       @current_puyos = @next_puyos.shift
 #      @current_puyos.each { |puyo|
-#        @render_engine.add_puyo_current(self,puyo,time)  
+#        @render_engine.add_puyo_current(self,puyo,time)
 #      }
       puts "@"+nb.to_s+" a une nouvelle forme qui tombe : "+@current_puyos.to_s
       @current_puyos.each { |puyo|
@@ -166,7 +167,7 @@ class Player
       @render_engine.switch(self,old_current_puyos,@current_puyos,@velocity)
     end
   end
-  
+
   def ojamapuyos_fall(nb)
     full_columns = nb / 6
     extras_puyos = nb - full_columns*6
@@ -184,10 +185,10 @@ class Player
         puyo.set_pos(5-full_columns,i-1)
         falling_puyos.push(puyo)
       }
-    end  
+    end
     return falling_puyos
   end
-  
+
   def chain
     time = Time.now+0.1
     @puyos_exploded = @puyo_chart.get_exploding_puyos()
@@ -204,7 +205,7 @@ class Player
 #      time = Time.now+0.1
       @puyos_exploded.each { |puyo|
         @puyo_chart.delete_puyo(puyo)
-#        @render_engine.explod(self,puyo,200,time)  
+#        @render_engine.explod(self,puyo,200,time)
 #        @render_engine.delete_puyo_chart(self,puyo,time)
       }
       @render_engine.explod(self,@puyos_exploded)
@@ -218,14 +219,14 @@ class Player
     if !puyos_fall.empty?
 #      time = Time.now+0.1
 #      @current_puyos.each { |puyo|
-#        @render_engine.delete_puyo_current(self,puyo,time)  
+#        @render_engine.delete_puyo_current(self,puyo,time)
 #      }
-      old_current_puyos = @current_puyos   
+      old_current_puyos = @current_puyos
       @current_puyos=puyos_fall
-      @current_puyos.each { |puyo|       
+      @current_puyos.each { |puyo|
         @puyo_chart.delete_puyo(puyo)
 #        @render_engine.delete_puyo_chart(self,puyo,time)
-#        @render_engine.add_puyo_current(self,puyo,time)  
+#        @render_engine.add_puyo_current(self,puyo,time)
       }
       #@render_engine.down(self,@current_puyos,@velocity/2)
 #      @render_engine.down(self,@velocity/2)
@@ -233,7 +234,7 @@ class Player
     else
       swich_puyos()
     end
-    
+
   end
 
   def updown_collision()
@@ -252,7 +253,7 @@ class Player
       end
     }
 #    @current_puyos.each { |puyo|
-#        @render_engine.delete_puyo_current(self,puyo,time)  
+#        @render_engine.delete_puyo_current(self,puyo,time)
 #    }
     @render_engine.update(self,puyos_to_add,@current_puyos)
     @current_puyos = new_current_puyos
@@ -261,7 +262,7 @@ class Player
     else
       puts "@"+nb.to_s+" tout n'est pas tombé, fait tombé le reste"
 #      @current_puyos.each { |puyo|
-#        @render_engine.add_puyo_current(self,puyo,time)  
+#        @render_engine.add_puyo_current(self,puyo,time)
 #      }
       #@render_engine.down(self,@current_puyos,@velocity/10)
 #      @render_engine.down(self,@velocity/10)
@@ -275,21 +276,21 @@ class Player
       @render_engine.move_right(self,@velocity/2)
     end
   end
-  
+
   def left_pressed ()
     if @can_move
       puts "@"+nb.to_s+" bouge à gauche la forme : "+ @current_puyos.to_s
       @render_engine.move_left(self,@velocity/2)
     end
   end
-  
+
   def down_pressed ()
     if @can_move
       @render_engine.move_down(self,@velocity/5)
     end
   end
-  
-  def a_pressed () 
+
+  def a_pressed ()
     if @can_move
       if @current_puyos.size == 4
         @render_engine.change_color(self,(@current_puyo.first.color +1) % difficulty)
@@ -298,7 +299,7 @@ class Player
       end
     end
   end
-  
+
   def b_pressed ()
     if @can_move
       if @current_puyos.size == 4
@@ -308,5 +309,5 @@ class Player
       end
     end
   end
-  
+
 end
