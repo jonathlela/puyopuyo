@@ -35,8 +35,6 @@ class RenderEngine
 
   def switch(player,old_puyos,puyos_to_fall,velocity)
     time = Time.now+0.1
-    puts "player"
-    puts player
     old_puyos.each { |puyo|
       @graphic_engine.delete_puyo_current(player,puyo,time)
     }
@@ -84,7 +82,7 @@ class RenderEngine
 
   def continue(player,puyos_to_fall,velocity)
     time = Time.now+0.1
-    #@graphic_engine.add_puyo_current(player,puyos_to_fall,time)
+    @graphic_engine.add_puyo_current(player,puyos_to_fall,time)
 #    puyos_to_fall.each { |puyo|
 #      @graphic_engine.add_puyo_current(player,puyo,time)
 #    }

@@ -260,7 +260,7 @@ class Player
     if new_current_puyos.empty?
       chain()
     else
-      puts "@"+nb.to_s+" tout n'est pas tombé, fait tombé le reste"
+      puts "@"+nb.to_s+" tout n'est pas tombé, fait tomber le reste : "+@current_puyos.to_s
 #      @current_puyos.each { |puyo|
 #        @render_engine.add_puyo_current(self,puyo,time)
 #      }

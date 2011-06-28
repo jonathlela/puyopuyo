@@ -11,14 +11,13 @@ class GraphicClient
   @@id=0
   def initialize(engine)
     @engine=engine
-    @socket = UDPSocket::new
-    @socket.connect(DOMAIN,PORT)
-    @socket.send( "initialized",0, DOMAIN, PORT )
+    @socket = TCPSocket::new(DOMAIN,PORT)
+    @socket.puts( "initialized" )
   end
   def listen
      Thread.new() {
       while true do
-        reply, from = @socket.recvfrom(100000, 0 )
+        reply = @socket.gets
         puts reply
         words = reply.split
         case words[0]
@@ -47,7 +46,7 @@ class GraphicClient
               puyos_id.push(words[i].to_i)
               i+=1
             end
-            @engine.move_puyo_from_chart_to_current(words[1].to_i,puyos_id)           
+            @engine.move_puyo_from_chart_to_current(words[1].to_i,puyos_id)
           when "delete_puyo_current"
             @engine.del_puyo_current(words[1].to_i,words[2].to_i)
           when "delete_puyo_chart"
@@ -65,11 +64,11 @@ class GraphicClient
               i+=1
             end
             puts "time to explod: "+words[i+1]
-            @engine.explod(words[1].to_i,puyos_id,words[i+1])  
+            @engine.explod(words[1].to_i,puyos_id,words[i+1])
 #          when "explod"
 #            @engine.explod(words[1].to_i,words[2].to_i,words[3].to_i)
           when "rensa"
-            
+
         end
       end
     }
@@ -84,11 +83,11 @@ class GraphicClient
       message << " "+puyo3d.id.to_s+" "+v.y.to_i.to_s+" "+v.x.to_i.to_s
     }
     puts message
-    @socket.send(message,0,DOMAIN,PORT) 
+    @socket.puts(message)
   end
   def explosion_completed(player)
     message="explosion_completed "+player.to_s
     puts message
-    @socket.send(message,0,DOMAIN,PORT) 
+    @socket.puts(message)
   end
 end
