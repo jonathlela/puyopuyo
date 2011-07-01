@@ -1,0 +1,58 @@
+= puyopuyo
+
+puyopuyo is a clone of the famous game http://puyo.sega.jp/[puyopuyo]
+written in ruby.
+
+== Setup
+
+You need http://www.ruby-lang.org/en/[ruby] 1.8, the
+http://ruby-opengl.rubyforge.org/[OpenGL] and the
+http://www.kmc.gr.jp/~ohai/rubysdl.en.html[SDL] libraries.
+
+== Usage
+
+The game is divided into two components : the server-side component
+that holds the game mechanics and the client sides that manages the
+displaying and the interruptions.
+
+To play puyopuyo, you first need to launch the server component :
+
+--------------------------------------
+puyopuyo$ ruby main.rb&
+--------------------------------------
+
+Then, you can launch the client component :
+
+--------------------------------------
+puyopuyo$ ruby main2.rb&
+--------------------------------------
+
+If you have http://ant.apache.org/[Ant]™, you can also simply launch
+both of the components by typing :
+
+--------------------------------------
+puyopuyo$ ant
+--------------------------------------
+
+When the client is launched, a 2 players party immediatly begins (this
+is the only mode).
+
+== Controls
+
+* Player 1 :
+** DOWN : Down arrow
+** LEFT : Left arrow
+** RIGHT : Right arrow
+** ROTATE CLOCKWISE & CHANGE COLOR : B
+** ROTATE ANTCLOCKWISE & CHANGE COLOR : N
+* Player 2 :
+** DOWN : S
+** LEFT : Q
+** RIGHT : D
+** ROTATE CLOCKWISE & CHANGE COLOR : A
+** ROTATE ANTCLOCKWISE & CHANGE COLOR : Z
+* QUIT : Escape
+
+== Notice
+
+The game is barely playable due to the presence of a lot of bugs.
